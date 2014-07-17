@@ -10,7 +10,9 @@ NewsReader.Views.FeedIndexView = Backbone.View.extend({
   render: function(){
     var view = this;
     var content = view.template();
-    view.$el.html(content);
+    var feed = new NewsReader.Models.Feed();
+    var form = new NewsReader.Views.FormView({model: feed});
+    view.$el.html(content).append(form.render().$el);
     view.collection.each(function(feed) {
       var showView = new NewsReader.Views.FeedShowView({ model: feed });
       view.$el.append(showView.render().$el);

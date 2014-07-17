@@ -4,7 +4,6 @@ NewsReader.Models.Feed = Backbone.Model.extend({
   
   //parse json data coming from server, get entries
   parse: function(jsonResp){
-    debugger
     if (jsonResp.latest_entries) {
       this.entries().set(jsonResp.latest_entries);
       delete jsonResp.latest_entries;

@@ -1,4 +1,7 @@
 class Api::FeedsController < ApplicationController
+  
+  before_action :require_signed_in
+  
   def index
     render :json => Feed.all
   end
@@ -14,6 +17,12 @@ class Api::FeedsController < ApplicationController
     else
       render :json => { error: "invalid url" }, status: :unprocessable_entity
     end
+  end
+  
+  def destroy
+    feed = Feed.find(params[:id])
+    feed.destroy
+    render :json => feed
   end
 
   private

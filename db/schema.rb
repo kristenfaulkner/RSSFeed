@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130626183103) do
+ActiveRecord::Schema.define(version: 20140717071447) do
 
   create_table "entries", force: true do |t|
     t.string   "guid",         null: false
@@ -35,5 +35,15 @@ ActiveRecord::Schema.define(version: 20130626183103) do
   end
 
   add_index "feeds", ["url"], name: "index_feeds_on_url", unique: true
+
+  create_table "users", force: true do |t|
+    t.string   "email",           null: false
+    t.string   "password_digest"
+    t.string   "session_token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
 
 end

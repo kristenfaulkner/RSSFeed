@@ -2,6 +2,8 @@ require 'open-uri'
 
 class Feed < ActiveRecord::Base
   has_many :entries, :dependent => :destroy
+  
+  belongs_to :user
 
   def self.find_or_create_by_url(url)
     feed = Feed.find_by_url(url)
@@ -9,6 +11,7 @@ class Feed < ActiveRecord::Base
 
     begin
       feed_data = SimpleRSS.parse(open(url))
+      debugger
       feed = Feed.create!(title: feed_data.title, url: url)
       feed_data.entries.each do |entry_data|
         Entry.create_from_json!(entry_data, feed)
